@@ -26,16 +26,19 @@ Nextline = wikiFile.readline()
 flagString = Nextline
 count = 1
 while (Nextline != ''):
-    if Nextline == flagString:
-        title = wikiFile.readline()
-        content = wikiFile.readline()
-        flag = table.insert(sql_insert, (title, content, datetime))
-        Nextline = wikiFile.readline()
-        count += 1
-        if (count%100 == 0):
-            print("入库词条数  %d  条" % count)
-    else:
-        Nextline = wikiFile.readline()
+    try:
+        if Nextline == flagString:
+            title = wikiFile.readline()
+            content = wikiFile.readline()
+            flag = table.insert(sql_insert, (title, content, datetime))
+            Nextline = wikiFile.readline()
+            count += 1
+            if (count%100 == 0):
+                print("入库词条数  %d  条" % count)
+        else:
+            Nextline = wikiFile.readline()
+            continue
+    except:
         continue
 
 wikiFile.close()
